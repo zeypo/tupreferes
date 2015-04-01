@@ -9,7 +9,10 @@
     </head>
     <body ng-controller="MainController as main">
         
-        <h1>Hello world</h1>
+        <ul style="font-size:24px;">
+            <li style="display:inline;"><a href="/">Home</a></li> |
+            <li style="display:inline;"><a href="/create">Créer</a></li>
+        </ul>
         
         <section class="container main-content" ng-view></section>
         
@@ -26,6 +29,10 @@
             <!-- controllers -->
             <script src="/modules/main.controller.js"></script>
             <script src="/modules/components/play/play.controller.js"></script>
-
+            <script src="/modules/components/create/create.controller.js"></script>
+            
+            <!-- services -->
+            <script src="/modules/components/play/play.service.js"></script>
+            <script src="/modules/components/create/create.service.js"></script>
     </body>
 </html>

@@ -49,6 +49,27 @@ exports.get = function(req, res) {
 }
 
 /**
+ * Récupére une story au hasard
+ * @param  {Object} req
+ * @param  {Object} res
+ * @return {Object} res
+ */
+exports.getRandom = function(req, res) {
+
+    Story
+        .random(function(err, story) {
+
+            if(err) {
+                response.error(res, '501', err)
+            }
+
+            response.success(res, '200', story);
+
+        });
+
+};
+
+/**
  * Crée une story et l'enregistre en bdd
  * @param  {Object} req
  *   - author
@@ -103,6 +124,11 @@ exports.create = function(req, res) {
 
 };
 
+/**
+ * Verifie que les paramètres en url ne comporte pas d'erreurs
+ * @param  {Object} params
+ * @return {Array}  errors
+ */
 var checkParameters = function(params) {
 
     var errors = [];

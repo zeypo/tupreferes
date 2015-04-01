@@ -1,0 +1,10 @@
+<form novalidate class="simple-form" ng-hide="create.validate">
+    Auteur (Optionel): <input type="text" ng-model="create.story.author" /><br>
+    Tu préféres : <input type="text" ng-model="create.story.prefere1" />
+    ou tu préféres : <input type="text" ng-model="create.story.prefere2" /><br>
+    <input type="submit" ng-click="createOne(create.story)" value="Save" />
+</form>
+
+<div ng-show="create.validate">
+    <h3 style="color:green;">Super ton tu preferes à été fournis</h3>
+</div>

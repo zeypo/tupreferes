@@ -18,4 +18,21 @@ var StorySchema = new Schema({
     }]
 }, { versionKey: false });
 
+/**
+ * Rend une story au hasard
+ * @return {Object} story
+ */
+StorySchema.statics.random = function(callback) {
+    
+    this.count(function(err, count) {
+        if (err) {
+            return callback(err);
+        }
+    
+        var rand = Math.floor(Math.random() * count);
+        this.findOne().skip(rand).exec(callback);
+    }.bind(this));
+
+};
+
 module.exports = mongoose.model('story', StorySchema, 'story');

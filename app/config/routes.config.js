@@ -15,12 +15,14 @@ module.exports = function(app) {
      * Controller front
      */
     app.get('/', frontController.generateFront);
+    app.get('/create', frontController.generateFront);
 
     /**
      * Controller api
      */
-    app.get('/api/story/create', storyApiController.create)
+    app.post('/api/story/create', storyApiController.create)
     app.get('/api/story', storyApiController.getAll)
+    app.get('/api/story/random', storyApiController.getRandom)
     app.get('/api/story/:id', storyApiController.get)
 
 };

@@ -1,1 +1,5 @@
-<h2>Je suis la page play</h2>
+<div>
+    <p>Auteur : {{play.story.author}}</p>
+    <p>Tu préfére : </p>
+    <p ng-repeat="prefere in play.story.prefere">{{prefere.title}}</p>
+</div>

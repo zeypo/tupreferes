@@ -6,8 +6,12 @@ function config($routeProvider, $locationProvider) {
         .when('/', {
             templateUrl  : '/modules/components/play/play.view.html',
             controller   : 'playCtrl',
-            controllerAs : 'play',
-            label        : 'Accueil'
+            controllerAs : 'play'
+        })
+        .when('/create', {
+            templateUrl  : '/modules/components/create/create.view.html',
+            controller   : 'createCtrl',
+            controllerAs : 'create'
         })
         .otherwise('/');
 
