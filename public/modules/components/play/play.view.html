@@ -1,10 +1,20 @@
-<div>
+<div ng-hide="voted">
     <p>Auteur : {{play.story.author}}</p>
     <p>Tu préfére : </p>
     <span ng-repeat="prefere in play.story.prefere" ng-click="vote($index)" style="font-weight:bold;">
         {{prefere.title}}
         <span ng-if="$first" style="font-weight:300;"> ou </span>
     </span>
+</div>
+
+<p ng-show="error" style="color:red; font-weight:bold;">{{error}}</p>
+
+<div ng-show="voted">
+    <p style="color:green; font-weight:bold;">Merci d'avoir voté.</p>
+
+    <p ng-repeat="prefere in play.story.prefere">
+        {{prefere.title}} : {{prefere.points}}
+    </p>
 </div>
 
 <button ng-click="reload()" style="margin-top:30px;">Une autre !</button>
