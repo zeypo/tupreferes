@@ -9,6 +9,12 @@ function playCtrl($scope, playService) {
     playService.getRandomStory().success(function(story) {
         _this.story = story.response;
     });
+
+    $scope.reload = function() {
+        playService.getRandomStory().success(function(story) {
+            _this.story = story.response;
+        });  
+    }
 }
 
 angular.module('tpsApp').controller('playCtrl',['$scope', 'playService', playCtrl]);

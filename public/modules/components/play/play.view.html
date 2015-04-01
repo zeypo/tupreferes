@@ -1,5 +1,10 @@
 <div>
     <p>Auteur : {{play.story.author}}</p>
     <p>Tu préfére : </p>
-    <p ng-repeat="prefere in play.story.prefere">{{prefere.title}}</p>
+    <span ng-repeat="prefere in play.story.prefere" style="font-weight:bold;">
+        {{prefere.title}}
+        <span ng-if="$first" style="font-weight:300;"> ou </span>
+    </span>
 </div>
+
+<button ng-click="reload()" style="margin-top:30px;">Une autre !</button>

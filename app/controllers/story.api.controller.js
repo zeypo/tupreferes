@@ -1,5 +1,6 @@
 'use strict';
 
+var _        = require('lodash');
 var logger   = require('../services/utils/logger.console.service');
 var response = require('../services/utils/response.server.service');
 var Story    = require('../models/story.model');
@@ -19,7 +20,7 @@ exports.getAll = function(req, res) {
                 response.error(res, 501, {errors : err});
             }
 
-            response.success(res, 200, {stories : stories})
+            response.success(res, 200, {stories : story});
 
         });
 
@@ -56,16 +57,44 @@ exports.get = function(req, res) {
  */
 exports.getRandom = function(req, res) {
 
-    Story
-        .random(function(err, story) {
+    if(!req.session.views) {
+        req.session.views = [];
+    }
 
-            if(err) {
-                response.error(res, '501', err)
-            }
+    Story.count({}, function(err, count) {
+        
+        /**
+         * On vérifie que la session n'a pas déja vu toutes les stories existantes
+         */    
+        if(count === req.session.views.length) {
+            req.session.views = [];
+        }
 
-            response.success(res, '200', story);
+        Story
+            .find({_id : { $nin: req.session.views } }, function(err, stories) {
+                
+                if(err) {
+                    response.error(res, '501', err);
+                }
+                
+                if(stories.length < 1) {
+                    req.session.views = [];
+                }
 
-        });
+                /* On choisit une story au hasard dans les stories retournés */
+                var story = _.sample(stories);
+
+                /**
+                 * On enregistre en session les stories que l'user
+                 * à déja vu
+                 */
+                req.session.views.push(story._id);
+                req.session.save();
+                
+                response.success(res, '200', story);
+            
+            })
+    })
 
 };
 
