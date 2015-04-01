@@ -21,6 +21,7 @@ module.exports = function(app) {
      * Controller api
      */
     app.post('/api/story/create', storyApiController.create)
+    app.post('/api/story/vote/:id', storyApiController.vote)
     app.get('/api/story', storyApiController.getAll)
     app.get('/api/story/random', storyApiController.getRandom)
     app.get('/api/story/:id', storyApiController.get)

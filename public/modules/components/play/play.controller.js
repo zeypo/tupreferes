@@ -4,8 +4,6 @@ function playCtrl($scope, playService) {
 
     var _this       = this;
 
-    _this.story = 'Je suis la page play';
-
     playService.getRandomStory().success(function(story) {
         _this.story = story.response;
     });
@@ -14,6 +12,12 @@ function playCtrl($scope, playService) {
         playService.getRandomStory().success(function(story) {
             _this.story = story.response;
         });  
+    }
+
+    $scope.vote = function(vote) {
+        playService.voteForPrefere(vote, _this.story._id).success(function(story) {
+            console.log(story);
+        })
     }
 }
 

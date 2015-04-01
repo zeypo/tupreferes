@@ -154,6 +154,62 @@ exports.create = function(req, res) {
 };
 
 /**
+ * Vote pour un paramétre de story
+ * @param  {Object} req
+ *   - prefer
+ *
+ * @param  {Object} res
+ * @return {Object} res
+ */
+exports.vote = function(req, res) {
+
+    var id   = req.params.id;
+    var vote = req.query.vote;
+
+    /**
+     * On crée un array vote qui contiendra l'id de la story voter
+     * pour empecher un utilisateur de voter plusieurs fois
+     */
+    if(!req.session.vote) {
+        req.session.vote = [];
+    }
+
+    /**
+     * Gestion des erreurs pour la requête
+     * ! A déplacer dans un service
+     */
+    if(!vote || vote == '' || vote > 1 || vote < 0) {
+        response.error(res, '400', 'Mauvaise requête. L\'argument vote ne peut pas être vide & doit être 1 ou 2.');
+    }
+
+    if(_.indexOf(req.session.vote, id) >= 0) {
+        response.error(res, '400', 'L\'utilisateur à déja voté pour cette story');
+    }
+
+    Story
+        .findById(id, function(err, story) {
+
+            if(err) {
+                response.error(res, '501', err);
+            }
+
+            story.prefere[vote].points++;
+            
+            story.save(function(err) {
+
+                if(err) {
+                    response.error(res, '501', err);
+                }
+
+                req.session.vote.push(story._id);
+                response.success(res, 200, story);
+            })
+
+        });
+
+}
+
+/**
  * Verifie que les paramètres en url ne comporte pas d'erreurs
  * @param  {Object} params
  * @return {Array}  errors

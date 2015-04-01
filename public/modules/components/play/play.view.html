@@ -1,7 +1,7 @@
 <div>
     <p>Auteur : {{play.story.author}}</p>
     <p>Tu préfére : </p>
-    <span ng-repeat="prefere in play.story.prefere" style="font-weight:bold;">
+    <span ng-repeat="prefere in play.story.prefere" ng-click="vote($index)" style="font-weight:bold;">
         {{prefere.title}}
         <span ng-if="$first" style="font-weight:300;"> ou </span>
     </span>
