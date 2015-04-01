@@ -8,6 +8,7 @@
     "cli-color": "^0.3.3",
     "express": "^4.12.3",
     "moment": "^2.9.0",
+    "mongoose": "^4.0.1",
     "string": "^3.1.1",
     "swig": "^1.4.2"
   },

@@ -3,6 +3,8 @@
 var express      = require('express');
 var bodyParser   = require('body-parser');
 var swig         = require('swig');
+var mongoose     = require('mongoose');
+var database     = require('./database.server.service');
 var routes       = require('../../config/routes.config');
 var logger       = require('../utils/logger.console.service');
 
@@ -28,6 +30,9 @@ module.exports = function(port) {
     app.use(bodyParser.urlencoded({
         extended: false
     }));
+
+    //Connexion à la base de données MongoDB
+    database.connect();
 
     //Chargement des routes
     routes(app);
