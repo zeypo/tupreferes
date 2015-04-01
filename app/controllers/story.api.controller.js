@@ -5,6 +5,50 @@ var response = require('../services/utils/response.server.service');
 var Story    = require('../models/story.model');
 
 /**
+ * Récupére toutes les story
+ * @param  {Object} req
+ * @param  {Object} res
+ * @return {Object} res
+ */
+exports.getAll = function(req, res) {
+
+    Story
+        .find(function(err, stories) {
+
+            if(err) {
+                response.error(res, 501, {errors : err});
+            }
+
+            response.success(res, 200, {stories : stories})
+
+        });
+
+};
+
+/**
+ * Recupére une story par id
+ * @param  {Object} req
+ * @param  {Object} res
+ * @return {Object} res
+ */
+exports.get = function(req, res) {
+
+    var id = req.params.id;
+    
+    Story
+        .findById(id, function(err, story) {
+
+            if(err) {
+                response.error(res, '501', err)
+            }
+
+            response.success(res, '200', story);
+
+        })
+
+}
+
+/**
  * Crée une story et l'enregistre en bdd
  * @param  {Object} req
  *   - author
@@ -72,4 +116,4 @@ var checkParameters = function(params) {
     }
 
     return errors;
-}
+};

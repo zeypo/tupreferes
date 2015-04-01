@@ -20,5 +20,7 @@ module.exports = function(app) {
      * Controller api
      */
     app.get('/api/story/create', storyApiController.create)
+    app.get('/api/story', storyApiController.getAll)
+    app.get('/api/story/:id', storyApiController.get)
 
 };
